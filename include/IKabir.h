@@ -8,8 +8,8 @@
 namespace android {
 
 enum {
-    NUM_ADD;
-    NUM_ADD2;
+    NUM_ADD,
+    NUM_ADD2
 };
 // ---------------------------------------------------------------------------- 
 class IKabir:public IInterface {
