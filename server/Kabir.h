@@ -1,14 +1,12 @@
 #include <binder/BinderService.h>
 #include "IKabir.h"
 namespace android {
-class Kabir:public BinderService < Kabir >, public BnKabir, protected Thread
-{
+class Kabir:public BinderService < Kabir >, public BnKabir, protected Thread {
 public:
-    static char const *getServiceName() 
+    static char const *getServiceName()
     {
         return "demo.Kabir";
-    } 
-
+    }
     Kabir();
     virtual void printInfo(int value);
     virtual void printInfo(int a, int b);

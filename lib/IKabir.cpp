@@ -7,28 +7,29 @@
 
 namespace android {
 
-class BpKabir:public BpInterface < IKabir > 
-{
+class BpKabir:public BpInterface < IKabir > {
 public:
-    BpKabir(const sp < IBinder > &impl):BpInterface < IKabir >
-                                           (impl) 
+    BpKabir(const sp < IBinder > &impl):BpInterface < IKabir > (impl) 
     {
     }
+
     virtual void printInfo(int value)
     {
         Parcel data, reply;
-        data.writeInterfaceToken(IKabir::getInterfaceDescriptor());
+        data.
+            writeInterfaceToken(IKabir::
+                    getInterfaceDescriptor());
         data.writeInt32(value);
-        remote()->transact(value, data, &reply);
+        remote()->transact(NUM_ADD, data, &reply);
         ALOGW("%d + 300 = %d", value, reply.readInt32());
     }
     virtual void printInfo(int a, int b)
     {
         Parcel data, reply;
-        data.writeInterfaceToken(IKabir::getInterfaceDescriptor());
+        data.writeInterfaceToken(IKabir:: getInterfaceDescriptor());
         data.writeInt32(a);
         data.writeInt32(b);
-        remote()->transact(200, data, &reply);
+        remote()->transact(NUM_ADD2, data, &reply);
         ALOGW("%d + %d = %d", a, b, reply.readInt32());
     }
 };
@@ -39,10 +40,16 @@ status_t BnKabir::onTransact(uint32_t code, const Parcel & data,
         Parcel * reply, uint32_t flags) 
 {
     switch (code) {
-        case 100:
+        case NUM_ADD:
             int value = data.readInt32();
             printInfo(value);
             reply->writeInt32(value + 300);
+            break;
+        case NUM_ADD2:
+            int a = data.readInt32();
+            int b = data.readInt32();
+            printInfo(a, b);
+            reply->writeInt32(a + b);
             break;
         default:
             return BBinder::onTransact(code, data, reply, flags);
@@ -51,4 +58,4 @@ status_t BnKabir::onTransact(uint32_t code, const Parcel & data,
 }
 #endif
 
-};// namespace android
+};				// namespace android
