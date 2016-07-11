@@ -16,9 +16,7 @@ public:
     virtual void printInfo(int value)
     {
         Parcel data, reply;
-        data.
-            writeInterfaceToken(IKabir::
-                    getInterfaceDescriptor());
+        data.writeInterfaceToken(IKabir::getInterfaceDescriptor());
         data.writeInt32(value);
         remote()->transact(NUM_ADD, data, &reply);
         ALOGW("%d + 300 = %d", value, reply.readInt32());
